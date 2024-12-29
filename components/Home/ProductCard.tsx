@@ -6,11 +6,18 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { Button } from '../ui/button'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@/store/store'
+import { addItem } from '@/store/cartSlice'
+
 
  type props={
     product:Product,
  }
 const ProductCard = ({product}:props) =>{
+  const items=useSelector((state:RootState)=>state.cart.items);
+  console.log(items);
+  const dispatch=useDispatch();
     const num=Math.round(product.rating.rate);
     const ratingArray=new Array(num).fill(0);
 
@@ -33,7 +40,7 @@ const ProductCard = ({product}:props) =>{
       <p><span className='line-through opacity-50 mr-2'>{'$'+(product.price+10.22).toFixed(2)}</span> {'$'+product.price}</p>
     </div>
     <div className="flex items-center justify-center gap-5">
-      <Button className='bg-red-500 hover:bg-red-400'>Add to Cart</Button>
+      <Button className='bg-red-500 hover:bg-red-400' onClick={()=>{dispatch(addItem(product))}}>Add to Cart</Button>
       <Button><Heart/></Button>
     </div>
     </div>
