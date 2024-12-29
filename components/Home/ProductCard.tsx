@@ -12,7 +12,6 @@ import { Button } from '../ui/button'
  }
 const ProductCard = ({product}:props) =>{
     const num=Math.round(product.rating.rate);
-    console.log(product.image);
     const ratingArray=new Array(num).fill(0);
 
     console.log("image url:"+product.image)
