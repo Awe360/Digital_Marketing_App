@@ -26,7 +26,7 @@ const ProductDetail = async({params}:{params:{id:string}}) => {
             <p className='text-2xl font-bold'>{"$"+singleProduct.price}</p>
             <p>{singleProduct.description}</p>
             <p className='mb-20 '><span className='font-bold'>Category:</span>{singleProduct.category}</p>
-            <AddtoCart/>
+            <AddtoCart item={singleProduct}/>
            
         </div>
     </div>

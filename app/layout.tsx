@@ -6,7 +6,8 @@ import Navbar from "@/components/Home/Navbar";
 import { ClerkProvider } from "@clerk/nextjs";
 import Footer from "@/components/Home/Footer";
 import StoreProvider from "@/provider/StoreProvider";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,11 +36,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="min-h-screen">
+        <div className="mt-24">
         <Navbar/>
         {children}
-        </div>
+        
+        <ToastContainer theme="dark"/>
         <Footer/>
+        </div>
       </body>
     </html>
     </ClerkProvider>

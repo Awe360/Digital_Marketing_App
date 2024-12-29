@@ -1,7 +1,13 @@
 'use client'
 import React,{useState} from 'react'
+import { CartSidebar } from '../Helper/CartSidebar'
 import Image from 'next/image'
-import SearchIcon from '../Helper/SearchIcon'
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+// import SearchIcon from '../Helper/NavbarIcons'
 import {
   Dialog,
   DialogContent,
@@ -17,10 +23,23 @@ import {
   SignedOut,
   UserButton
 } from '@clerk/nextjs'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@/store/store'
+import { addItem, removeItem } from '@/store/cartSlice'
+
+
 const Navbar = () => {
+  const items=useSelector((state:RootState)=>state.cart.items);
+  const dispatch=useDispatch();
+  const totalSum=items.reduce((total,item)=>total=total+item.quantity,0)
   const[quant,setQuant]=useState(0);
+  const [isOpen, setIsOpen] = useState(false);
+  const handleClose = () => {
+    setIsOpen(false);
+  };
   return (
-    <div className='h-20 shadow-lg flex items-center justify-around'>
+   
+    <div className='h-20 shadow-lg flex items-center justify-around fixed w-full top-0  bg-gray-300'>
   <Image src='/images/logo.png' alt='Logo image' className='cursor-pointer' width={50} height={50} />
   <div className="">
 
@@ -35,9 +54,15 @@ const Navbar = () => {
             </DialogContent>
           </Dialog>
             <HeartIcon className='cursor-pointer'/>
-            <div className="flex relative">
-            <FaShoppingCart size={26} className='cursor-pointer'/>
-            <div className="absolute bg-red-500 cursor-pointer rounded-lg left-4 bottom-3 flex items-center h-6  p-1 text-center">{quant}</div>
+            <div className="flex relative ">
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger><FaShoppingCart size={26} className='cursor-pointer'/></SheetTrigger>
+             <SheetContent className='overflow-auto'>
+                  <CartSidebar items={items}/>
+                  
+              </SheetContent>
+              </Sheet>
+            <div className="absolute bg-red-500 cursor-pointer rounded-lg left-4 bottom-3 flex items-center h-6  p-1 text-center">{totalSum}</div>
             
             </div>
             <SignedOut>
@@ -54,6 +79,7 @@ const Navbar = () => {
     </div>
   </div>
     </div>
+    
   )
 }
 
