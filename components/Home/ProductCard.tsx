@@ -16,6 +16,7 @@ import { toast } from 'react-toastify';
     product:Product,
  }
 const ProductCard = ({product}:props) =>{
+  
   const items=useSelector((state:RootState)=>state.cart.items);
   // console.log(items);
   const dispatch=useDispatch();

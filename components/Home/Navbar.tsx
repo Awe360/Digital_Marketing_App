@@ -32,14 +32,11 @@ const Navbar = () => {
   const items=useSelector((state:RootState)=>state.cart.items);
   const dispatch=useDispatch();
   const totalSum=items.reduce((total,item)=>total=total+item.quantity,0)
-  const[quant,setQuant]=useState(0);
-  const [isOpen, setIsOpen] = useState(false);
-  const handleClose = () => {
-    setIsOpen(false);
-  };
+  // const[quant,setQuant]=useState(0);
+  // const[isOpen,setIsOpen]=useState(false);
   return (
    
-    <div className='h-20 shadow-lg flex items-center justify-around fixed w-full top-0  bg-gray-300'>
+    <div className='h-20 shadow-lg flex items-center justify-around fixed w-full top-0  bg-gray-300 '>
   <Image src='/images/logo.png' alt='Logo image' className='cursor-pointer' width={50} height={50} />
   <div className="">
 
@@ -55,9 +52,9 @@ const Navbar = () => {
           </Dialog>
             <HeartIcon className='cursor-pointer'/>
             <div className="flex relative ">
-            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <Sheet>
             <SheetTrigger><FaShoppingCart size={26} className='cursor-pointer'/></SheetTrigger>
-             <SheetContent className='overflow-auto'>
+             <SheetContent className='overflow-auto h-full'>
                   <CartSidebar items={items}/>
                   
               </SheetContent>

@@ -7,6 +7,7 @@ import { Button } from '../ui/button';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { SheetClose } from '../ui/sheet';
 
 type Props = {
   items: cartItem[];
@@ -30,11 +31,14 @@ export const CartSidebar = ({ items }: Props) => {
               className="mx-auto my-20"
             />
             <h1 className="text-xl text-center">Your Cart is Empty</h1>
-            <Button className="mx-auto mt-5" >
-                <Link href={'/'}>
-              Continue Shopping
+              <Link href={'/'} className="mx-auto mt-5">
+            <SheetClose>
+                <Button  >
+               Continue Shopping
+              </Button>
+              </SheetClose>
               </Link>
-            </Button>
+            
           </div>
         ) : (
           <div>
@@ -76,11 +80,15 @@ export const CartSidebar = ({ items }: Props) => {
       </div>
       <div className="w-full text-center">
         {items.length > 0 && (
-          <Button className="mx-auto w-full" >
-            <Link href={'/cart'}>
+          
+            <Link href={'/cart'} className="mx-auto w-full">
+              <SheetClose>
+          <Button>
             View All Carts
-            </Link>
-          </Button>
+           </Button>
+           </SheetClose>
+          </Link>
+         
         )}
       </div>
     </div>

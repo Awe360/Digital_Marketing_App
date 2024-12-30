@@ -29,7 +29,7 @@ const AllProducts = () => {
     // console.log(products);
     
   return (
-    <div className='mx-auto mt-10 '>
+    <div className='mx-auto mt-10'>
         <h1 className='text-xl font-bold text-center mb-10'>All Products List</h1>
         <div className="grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mx-auto text-center">
         {loading? <Loader size={32} className='animate-spin col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4 xl:col-span-5 mx-auto '/>:(products?.map((item)=>{
