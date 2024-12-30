@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { addItem, cartItem, removeItem } from '@/store/cartSlice';
+import { addItem, cartItem, clearCart, removeItem } from '@/store/cartSlice';
 import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -10,14 +10,20 @@ import { Button } from '@/components/ui/button';
 import { RootState } from '@/store/store';
 import { FaPaypal } from 'react-icons/fa';
 import { useUser } from '@clerk/nextjs';
+import PayPal from '@/components/Helper/PayPal';
 
 const CartPage = () => {
+  const router=useRouter();
   const[subTotal,setSubTotal]=useState(0);
  const dispatch = useDispatch();
  const items=useSelector((state:RootState)=>state.cart.items);
 const temp:number=Number(items?.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2))
 // setSubTotal(temp);
 const {user}=useUser();
+const handleSuccess=(details:any)=>{
+  // router.push('/success');
+  dispatch(clearCart());
+}
   return (
     <div  className='min-h-screen grid gap-x-16 grid-cols-1 md:grid-cols-7 mx-24 mt-32 '>
 <div className="col-span-5">
@@ -74,8 +80,9 @@ const {user}=useUser();
 </div>
 {!user && <Link href='/sign-in' className='ml-[100px]'><Button className=' bg-yellow-500 mx-auto'>Login</Button></Link>
     }
-    {user && <Link href='/paypal' className='ml-[100px]'><Button className=''>PayPal</Button></Link>
+    {user && <PayPal amount={`${1.14*temp}`} onSuccess={handleSuccess}/>
     }
+    
 </div>
 
 
